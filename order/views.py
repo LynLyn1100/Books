@@ -7,6 +7,7 @@ from cart.cart import Cart
 from .models import Order, OrderItem
 from .forms import OrderCreateForm
 from .pdfcreator import renderPdf
+from django.http import Http404
 
 def order_create(request):
 	cart = Cart(request)
@@ -35,7 +36,7 @@ def order_create(request):
 				messages.error(request, "Fill out your information correctly.")
 
 		if len(cart) > 0:
-			return render(request, 'order/order.html', {"form": form})
+			return render(request, 'order/order_create.html', {"form": form})
 		else:
 			return redirect('store:books')
 	else:
